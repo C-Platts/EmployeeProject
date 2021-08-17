@@ -6,6 +6,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 public class Employee {
 
@@ -19,9 +20,10 @@ public class Employee {
     private Date dateOfBirth;
     private Date dateOfJoining;
     private int salary;
+    private final SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 
     public Employee(int id, String namePrefix, String firstName, char middleInitial, String lastName, String gender, String email, String dateOfBirth, String dateOfJoining, int salary) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
 
         this.id = id;
         this.namePrefix = namePrefix;
@@ -76,23 +78,20 @@ public class Employee {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Employee) {
-            return ((Employee) obj).id == id ||
-                    (((Employee) obj).firstName.equals(firstName) &&
-                    ((Employee) obj).middleInitial == middleInitial &&
-                    ((Employee) obj).lastName.equals(lastName) &&
-                    ((Employee) obj).gender.equals(gender) &&
-                    ((Employee) obj).email.equals(email) &&
-                    ((Employee) obj).dateOfBirth.equals(dateOfBirth) &&
-                    ((Employee) obj).dateOfJoining.equals(dateOfJoining) &&
-                    ((Employee) obj).salary == salary);
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+
+        if(id == employee.id)
+            return true;
+
+        return middleInitial == employee.middleInitial && salary == employee.salary && Objects.equals(namePrefix, employee.namePrefix) && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender) && Objects.equals(email, employee.email) && Objects.equals(dateOfBirth, employee.dateOfBirth) && Objects.equals(dateOfJoining, employee.dateOfJoining) && Objects.equals(formatter, employee.formatter);
     }
+
     @Override
     public int hashCode() {
-        return this.id;
+        return Objects.hash(namePrefix, firstName, middleInitial, lastName, gender, email, dateOfBirth, dateOfJoining, salary, formatter);
     }
 
     @Override
@@ -105,8 +104,8 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", dateOfJoining='" + dateOfJoining + '\'' +
+                ", dateOfBirth='" + formatter.format(dateOfBirth) + '\'' +
+                ", dateOfJoining='" + formatter.format(dateOfJoining) + '\'' +
                 ", salary=" + salary +
                 '}';
     }

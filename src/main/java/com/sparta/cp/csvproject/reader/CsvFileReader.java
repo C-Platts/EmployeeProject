@@ -44,16 +44,6 @@ public class CsvFileReader {
                 }
                 System.out.println(employeeList.size());
 
-//                //Read file line by line
-//                for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-//
-//                    //Split line into (hopefully) 10 attributes separated by commas
-//                    attributes = line.split(",");
-//
-//                    //Build employee from attributes and add to list
-//                    employeeList.add(buildEmployee(attributes));
-//                }
-
             }
 
             bufferedReader.close();

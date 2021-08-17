@@ -39,4 +39,14 @@ public class EmployeeDTO {
                 "\n" + "Total Records: " + (employeeSet.size() + duplicateList.size()));
     }
 
+    public boolean validateName(String name) {
+        return name.matches("[A-Za-z]*");
+    }
+    public boolean validateGender(String gender) {
+        return gender.matches("[MF]");
+    }
+    public boolean validateNumerical(String numerical) {
+        return numerical.matches("[0-9]*");
+    }
+
 }
