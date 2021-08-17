@@ -6,7 +6,7 @@ public class App
 {
     public static void main( String[] args ) {
 
-        CsvFileReader.readFromFile("src/main/resources/EmployeeRecords.csv");
+        CsvFileReader.readFromFile("src/main/resources/CustomRecords.csv");
 
 
     }

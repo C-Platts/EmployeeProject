@@ -115,12 +115,29 @@ public class Employee {
 //                    ((Employee) obj).dateOfBirth.equals(dateOfBirth) &&
 //                    ((Employee) obj).dateOfJoining.equals(dateOfJoining) &&
 //                    ((Employee) obj).salary == salary);
-            return ((Employee) obj).id == id;
+            return ((Employee) obj).id == id ||
+                    ((Employee) obj).email.equals(email);
         }
         return false;
     }
     @Override
     public int hashCode() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", namePrefix='" + namePrefix + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleInitial=" + middleInitial +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", dateOfJoining='" + dateOfJoining + '\'' +
+                ", salary=" + salary +
+                '}';
     }
 }
