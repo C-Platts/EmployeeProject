@@ -1,7 +1,7 @@
 package com.sparta.cp.csvproject.reader;
 
-import com.sparta.cp.csvproject.dto.Employee;
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
+import com.sparta.cp.csvproject.dto.EmployeeVerifier;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,11 +13,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CsvFileReader {
-    public void readFromFile(String fileName) {
+    public void readFromFile(String fileName, CsvFileFilter filter) {
 
-        EmployeeDTO employeeDTO;
+        EmployeeVerifier employeeVerifier;
 
-        List<Employee> employeeList = null;
+        List<EmployeeDTO> employeeDTOList = null;
 
         try {
 
@@ -29,7 +29,7 @@ public class CsvFileReader {
             //Skip first line
             if(bufferedReader.readLine() != null) {
 
-                employeeList = bufferedReader.lines()
+                employeeDTOList = bufferedReader.lines()
                         .map(l -> l.split(","))
                         .filter(a -> a.length == 10)
                         .map(CsvFileReader::buildEmployee)
@@ -37,10 +37,10 @@ public class CsvFileReader {
                         .distinct()
                         .collect(Collectors.toList());
 
-                for (Employee e:employeeList) {
+                for (EmployeeDTO e: employeeDTOList) {
                     System.out.println(e);
                 }
-                System.out.println(employeeList.size());
+                System.out.println(employeeDTOList.size());
 
             }
 
@@ -54,24 +54,24 @@ public class CsvFileReader {
 
 
         //DTO filters out duplicate employees
-        if (employeeList != null) {
-            employeeDTO = new EmployeeDTO((ArrayList<Employee>) employeeList);
-            employeeDTO.printAmount();
+        if (employeeDTOList != null) {
+            employeeVerifier = new EmployeeVerifier((ArrayList<EmployeeDTO>) employeeDTOList);
+            employeeVerifier.printAmount();
         }
 
 
     }
 
-    private static Employee buildEmployee(String[] attributes) {
+    private static EmployeeDTO buildEmployee(String[] attributes) {
         //Each employee has 10 attributes
         try {
-            Employee employee = new Employee(
+            EmployeeDTO employeeDTO = new EmployeeDTO(
                     //ID                          //Name Prefix        //First Name   //Middle initial        //last name
                     Integer.parseInt(attributes[0]), attributes[+1], attributes[2], attributes[+3].charAt(0), attributes[+4],
                     //Gender         //email        //DOB          //date of join          //salary
                     attributes[+5], attributes[+6], attributes[+7], attributes[+8], Integer.parseInt(attributes[+9]));
 
-            return employee;
+            return employeeDTO;
 
         } catch(NumberFormatException | ParseException n) {
             n.printStackTrace();

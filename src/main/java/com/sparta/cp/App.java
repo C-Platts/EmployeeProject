@@ -4,7 +4,7 @@ public class App
 {
     public static void main( String[] args ) {
 
-        CsvManager manager = new CsvManager(filter);
+        CsvManager manager = new CsvManager();
         manager.start();
 
     }

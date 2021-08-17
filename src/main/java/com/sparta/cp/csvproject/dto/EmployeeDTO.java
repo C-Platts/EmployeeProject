@@ -1,52 +1,109 @@
 package com.sparta.cp.csvproject.dto;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
 
 public class EmployeeDTO {
 
-    HashSet<Employee> employeeSet;
-    ArrayList<Employee> duplicateList;
+    private final int id;
+    private String namePrefix;
+    private String firstName;
+    private char middleInitial;
+    private String lastName;
+    private String gender;
+    private String email;
+    private Date dateOfBirth;
+    private Date dateOfJoining;
+    private int salary;
+    private final SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 
-    public EmployeeDTO(ArrayList<Employee> employeeList) {
+    public EmployeeDTO(int id, String namePrefix, String firstName, char middleInitial, String lastName, String gender, String email, String dateOfBirth, String dateOfJoining, int salary) throws ParseException {
 
-        employeeSet = new HashSet<>();
-        duplicateList = new ArrayList<>();
 
-        for (Employee employee: employeeList) {
-            //check for duplicate
-            if(!employeeSet.add(employee))
-            {
-                duplicateList.add(employee);
-            }
-        }
-    }
-    //Ms.,Beulah,J,Weeks,F,beula.weeks@aol.com,4/5/1975,2/11/2011,139978
-
-    public void printEmployees() {
-        System.out.println(employeeSet.toString());
-    }
-
-    public void printDuplicates() {
-        System.out.println(duplicateList.toString());
-    }
-
-    public void printAmount() {
-        System.out.println("Employees: " + employeeSet.size() +
-                "\n" + "Duplicates Found: " + duplicateList.size() +
-                "\n" + "Total Records: " + (employeeSet.size() + duplicateList.size()));
+        this.id = id;
+        this.namePrefix = namePrefix;
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+        this.dateOfBirth = formatter.parse(dateOfBirth);
+        this.dateOfJoining = formatter.parse(dateOfJoining);
+        this.salary = salary;
     }
 
-    public boolean validateName(String name) {
-        return name.matches("[A-Za-z]*");
-    }
-    public boolean validateGender(String gender) {
-        return gender.matches("[MF]");
-    }
-    public boolean validateNumerical(String numerical) {
-        return numerical.matches("[0-9]*");
+    public int getId() {
+        return id;
     }
 
+    public String getNamePrefix() {
+        return namePrefix;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public char getMiddleInitial() {
+        return middleInitial;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Date getDateOfJoining() {
+        return dateOfJoining;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeDTO employeeDTO = (EmployeeDTO) o;
+
+        if(id == employeeDTO.id)
+            return true;
+
+        return middleInitial == employeeDTO.middleInitial && salary == employeeDTO.salary && Objects.equals(namePrefix, employeeDTO.namePrefix) && Objects.equals(firstName, employeeDTO.firstName) && Objects.equals(lastName, employeeDTO.lastName) && Objects.equals(gender, employeeDTO.gender) && Objects.equals(email, employeeDTO.email) && Objects.equals(dateOfBirth, employeeDTO.dateOfBirth) && Objects.equals(dateOfJoining, employeeDTO.dateOfJoining) && Objects.equals(formatter, employeeDTO.formatter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(namePrefix, firstName, middleInitial, lastName, gender, email, dateOfBirth, dateOfJoining, salary, formatter);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", namePrefix='" + namePrefix + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleInitial=" + middleInitial +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", dateOfBirth='" + formatter.format(dateOfBirth) + '\'' +
+                ", dateOfJoining='" + formatter.format(dateOfJoining) + '\'' +
+                ", salary=" + salary +
+                '}';
+    }
 }
