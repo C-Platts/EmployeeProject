@@ -13,9 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CsvFileReader {
-    public static void readFromFile(String fileName) {
-
-        String[] attributes;
+    public void readFromFile(String fileName) {
 
         EmployeeDTO employeeDTO;
 
