@@ -13,9 +13,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CsvFileReader {
-    public void readFromFile(String fileName, CsvFileFilter filter) {
 
-        EmployeeVerifier employeeVerifier;
+    public List<EmployeeDTO> readFromFile(String fileName, EmployeeVerifier verifier) {
 
         List<EmployeeDTO> employeeDTOList = null;
 
@@ -32,7 +31,7 @@ public class CsvFileReader {
                 employeeDTOList = bufferedReader.lines()
                         .map(l -> l.split(","))
                         .filter(a -> a.length == 10)
-                        .map(CsvFileReader::buildEmployee)
+                        .map(verifier::buildEmployee)
                         .filter(Objects::nonNull)
                         .distinct()
                         .collect(Collectors.toList());
@@ -40,7 +39,9 @@ public class CsvFileReader {
                 for (EmployeeDTO e: employeeDTOList) {
                     System.out.println(e);
                 }
-                System.out.println(employeeDTOList.size());
+                System.out.println("Valid Records: " + employeeDTOList.size());
+//                System.out.println("Duplicates found: ");
+//                System.out.println("Invalid records found: ");
 
             }
 
@@ -51,32 +52,9 @@ public class CsvFileReader {
             System.err.println("File not found");
         }
 
-
-
-        //DTO filters out duplicate employees
-        if (employeeDTOList != null) {
-            employeeVerifier = new EmployeeVerifier((ArrayList<EmployeeDTO>) employeeDTOList);
-            employeeVerifier.printAmount();
-        }
-
+        return employeeDTOList;
 
     }
 
-    private static EmployeeDTO buildEmployee(String[] attributes) {
-        //Each employee has 10 attributes
-        try {
-            EmployeeDTO employeeDTO = new EmployeeDTO(
-                    //ID                          //Name Prefix        //First Name   //Middle initial        //last name
-                    Integer.parseInt(attributes[0]), attributes[+1], attributes[2], attributes[+3].charAt(0), attributes[+4],
-                    //Gender         //email        //DOB          //date of join          //salary
-                    attributes[+5], attributes[+6], attributes[+7], attributes[+8], Integer.parseInt(attributes[+9]));
 
-            return employeeDTO;
-
-        } catch(NumberFormatException | ParseException n) {
-            n.printStackTrace();
-            return null;
-        }
-
-    }
 }

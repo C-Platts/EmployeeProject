@@ -1,7 +1,11 @@
 package com.sparta.cp;
 
+import com.sparta.cp.csvproject.dto.EmployeeDTO;
+import com.sparta.cp.csvproject.dto.EmployeeVerifier;
 import com.sparta.cp.csvproject.reader.CsvFileFilter;
 import com.sparta.cp.csvproject.reader.CsvFileReader;
+
+import java.util.ArrayList;
 
 public class CsvManager {
 
@@ -11,7 +15,11 @@ public class CsvManager {
 
     public void start() {
 
-        reader.readFromFile(fileName, filter);
+        reader = new CsvFileReader();
+
+        ArrayList<EmployeeDTO> employees = (ArrayList<EmployeeDTO>) reader.readFromFile(fileName, new EmployeeVerifier());
+
+
 
     }
 
