@@ -1,5 +1,10 @@
 package com.sparta.cp.csvproject.dto;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Employee {
@@ -11,11 +16,13 @@ public class Employee {
     private String lastName;
     private String gender;
     private String email;
-    private String dateOfBirth;
-    private String dateOfJoining;
+    private Date dateOfBirth;
+    private Date dateOfJoining;
     private int salary;
 
-    public Employee(int id, String namePrefix, String firstName, char middleInitial, String lastName, String gender, String email, String dateOfBirth, String dateOfJoining, int salary) {
+    public Employee(int id, String namePrefix, String firstName, char middleInitial, String lastName, String gender, String email, String dateOfBirth, String dateOfJoining, int salary) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
         this.id = id;
         this.namePrefix = namePrefix;
         this.firstName = firstName;
@@ -23,8 +30,8 @@ public class Employee {
         this.lastName = lastName;
         this.gender = gender;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.dateOfJoining = dateOfJoining;
+        this.dateOfBirth = formatter.parse(dateOfBirth);
+        this.dateOfJoining = formatter.parse(dateOfJoining);
         this.salary = salary;
     }
 
@@ -36,87 +43,50 @@ public class Employee {
         return namePrefix;
     }
 
-    public void setNamePrefix(String namePrefix) {
-        this.namePrefix = namePrefix;
-    }
-
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public char getMiddleInitial() {
         return middleInitial;
     }
 
-    public void setMiddleInitial(char middleInitial) {
-        this.middleInitial = middleInitial;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getDateOfJoining() {
+    public Date getDateOfJoining() {
         return dateOfJoining;
-    }
-
-    public void setDateOfJoining(String dateOfJoining) {
-        this.dateOfJoining = dateOfJoining;
     }
 
     public int getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Employee) {
-//            return (((Employee) obj).firstName.equals(firstName) &&
-//                    ((Employee) obj).middleInitial == middleInitial &&
-//                    ((Employee) obj).lastName.equals(lastName) &&
-//                    ((Employee) obj).gender.equals(gender) &&
-//                    ((Employee) obj).email.equals(email) &&
-//                    ((Employee) obj).dateOfBirth.equals(dateOfBirth) &&
-//                    ((Employee) obj).dateOfJoining.equals(dateOfJoining) &&
-//                    ((Employee) obj).salary == salary);
             return ((Employee) obj).id == id ||
-                    ((Employee) obj).email.equals(email);
+                    (((Employee) obj).firstName.equals(firstName) &&
+                    ((Employee) obj).middleInitial == middleInitial &&
+                    ((Employee) obj).lastName.equals(lastName) &&
+                    ((Employee) obj).gender.equals(gender) &&
+                    ((Employee) obj).email.equals(email) &&
+                    ((Employee) obj).dateOfBirth.equals(dateOfBirth) &&
+                    ((Employee) obj).dateOfJoining.equals(dateOfJoining) &&
+                    ((Employee) obj).salary == salary);
         }
         return false;
     }

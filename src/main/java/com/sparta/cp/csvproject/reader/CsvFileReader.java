@@ -6,6 +6,7 @@ import com.sparta.cp.csvproject.dto.EmployeeDTO;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -65,9 +66,12 @@ public class CsvFileReader {
 
 
         //DTO filters out duplicate employees
-        employeeDTO = new EmployeeDTO((ArrayList<Employee>) employeeList);
+        if (employeeList != null) {
+            employeeDTO = new EmployeeDTO((ArrayList<Employee>) employeeList);
+            employeeDTO.printAmount();
+        }
 
-        employeeDTO.printAmount();
+
     }
 
     private static Employee buildEmployee(String[] attributes) {
@@ -77,12 +81,12 @@ public class CsvFileReader {
                     //ID                          //Name Prefix        //First Name   //Middle initial        //last name
                     Integer.parseInt(attributes[0]), attributes[+1], attributes[2], attributes[+3].charAt(0), attributes[+4],
                     //Gender         //email        //DOB          //date of join          //salary
-                    attributes[+5], attributes[+6], attributes[+7], attributes[+8],  Integer.parseInt(attributes[+9]));
+                    attributes[+5], attributes[+6], attributes[+7], attributes[+8], Integer.parseInt(attributes[+9]));
 
             return employee;
 
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
+        } catch(NumberFormatException | ParseException n) {
+            n.printStackTrace();
             return null;
         }
 
