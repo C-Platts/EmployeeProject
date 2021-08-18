@@ -10,7 +10,7 @@ public class ConnectionManager {
 
     private static Connection connection;
 
-    public Connection connectToDatabase() {
+    public static Connection connectToDatabase() {
         String url = PropertiesLoader.getProperties().getProperty("url");
         String username = PropertiesLoader.getProperties().getProperty("userName");
         String password = PropertiesLoader.getProperties().getProperty("password");

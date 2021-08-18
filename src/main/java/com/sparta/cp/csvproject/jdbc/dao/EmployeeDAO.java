@@ -11,7 +11,7 @@ public class EmployeeDAO {
     private static final String GET_RECORD_COUNT = "SELECT COUNT(*) FROM employees_db.employee";
     private static final String CREATE_NEW_RECORD = "INSERT INTO `employee_db`.`employee` (`idemployee`, `name_prefix`, `first_name`, `middle_initial`, `last_name`, `gender`, `email`, `date_of_birth`, `date_of_joining`, `salary`) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-    EmployeeDAO(Connection connection) {
+    public EmployeeDAO(Connection connection) {
         this.connection = connection;
 
         try {
@@ -23,7 +23,7 @@ public class EmployeeDAO {
     }
 
     //Create
-    public void createRecord(int id, String namePrefix, String firstName, char middleInitial, String lastName, char gender, String email, LocalDate dateOfBith, LocalDate dateOfJoining, int salary) {
+    public boolean createRecord(int id, String namePrefix, String firstName, char middleInitial, String lastName, char gender, String email, LocalDate dateOfBith, LocalDate dateOfJoining, int salary) {
             try {
 
                 PreparedStatement preparedStatement = connection.prepareStatement(CREATE_NEW_RECORD);
@@ -41,9 +41,12 @@ public class EmployeeDAO {
                 preparedStatement.execute();
                 preparedStatement.close();
 
+                return true;
+
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            return false;
     }
 
 
