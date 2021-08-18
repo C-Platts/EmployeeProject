@@ -25,17 +25,19 @@ public class CsvFileReader {
             //Skip first line
             if(bufferedReader.readLine() != null) {
 
-                employeeDTOList = bufferedReader.lines()
+               employeeDTOList = bufferedReader.lines()
                         .map(l -> l.split(","))
                         .filter(a -> a.length == 10)
-                        .map(a -> new EmployeeDTO(a))
+                        .map(EmployeeDTO::new)
                         .filter(Objects::nonNull)
                         .distinct()
                         .collect(Collectors.toList());
 
-                for (EmployeeDTO e: employeeDTOList) {
-                    System.out.println(e);
+                for (EmployeeDTO employee: employeeDTOList) {
+                    System.out.println(employee);
                 }
+
+
                 System.out.println("Valid Records: " + employeeDTOList.size());
 //                System.out.println("Duplicates found: ");
 //                System.out.println("Invalid records found: ");

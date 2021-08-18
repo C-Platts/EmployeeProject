@@ -21,7 +21,7 @@ public class ReadFromFileTest {
     @Test
     public void testValidRecordIsRead() {
 
-        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/Valid Record.csv", new EmployeeVerifier());
+        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/Valid Record.csv");
 
         Assertions.assertEquals(1, employees.size());
 
@@ -29,16 +29,16 @@ public class ReadFromFileTest {
 
     @Test
     public void testDuplicatesAreIgnored() {
-        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/Duplicates.csv", new EmployeeVerifier());
+        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/Duplicates.csv");
 
-        Assertions.assertEquals(1, employees.size());
+        Assertions.assertEquals(4, employees.size());
     }
 
     @Test
     public void testInvalidRecordsAreIgnored() {
-        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/InvalidRecords.csv", new EmployeeVerifier());
+        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/InvalidRecords.csv");
 
-        Assertions.assertEquals(2, employees.size());
+        Assertions.assertEquals(3, employees.size());
     }
 
 }
