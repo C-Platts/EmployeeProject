@@ -68,7 +68,7 @@ public class EmployeeVerifier {
     }
 
     public boolean isPrefixValid(String prefix) {
-        return prefix.matches("(Mr|Ms|Mrs|Prof|Dr|Hon).");
+        return prefix.matches("(Mr|Ms|Mrs|Prof|Dr|Hon|Drs).");
     }
     public boolean isNameValid(String name) {
         return name.matches("[A-Za-z]*");

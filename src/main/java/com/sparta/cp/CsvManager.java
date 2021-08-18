@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class CsvManager {
 
-    private final String fileName = "src/main/resources/CustomRecords.csv";
+    private final String fileName = "src/main/resources/EmployeeRecords.csv";
     private CsvFileFilter filter;
     private CsvFileReader reader;
 

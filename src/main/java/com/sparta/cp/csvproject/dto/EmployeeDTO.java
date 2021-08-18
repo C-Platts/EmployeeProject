@@ -88,7 +88,8 @@ public class EmployeeDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(namePrefix, firstName, middleInitial, lastName, gender, email, dateOfBirth, dateOfJoining, salary, formatter);
+        //return Objects.hash(namePrefix, firstName, middleInitial, lastName, gender, email, dateOfBirth, dateOfJoining, salary, formatter);
+        return Objects.hash(id);
     }
 
     @Override
