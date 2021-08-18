@@ -7,9 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CsvFileReader {
@@ -28,7 +26,7 @@ public class CsvFileReader {
             //Skip first line
             if(bufferedReader.readLine() != null) {
 
-                employeeDTOList = bufferedReader.lines()
+               employeeDTOList = bufferedReader.lines()
                         .map(l -> l.split(","))
                         .filter(a -> a.length == 10)
                         .map(verifier::buildEmployee)
@@ -36,9 +34,11 @@ public class CsvFileReader {
                         .distinct()
                         .collect(Collectors.toList());
 
-                for (EmployeeDTO e: employeeDTOList) {
-                    System.out.println(e);
+                for (EmployeeDTO employee: employeeDTOList) {
+                    System.out.println(employee);
                 }
+
+
                 System.out.println("Valid Records: " + employeeDTOList.size());
 //                System.out.println("Duplicates found: ");
 //                System.out.println("Invalid records found: ");
