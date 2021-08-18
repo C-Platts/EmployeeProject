@@ -1,14 +1,8 @@
 package com.sparta.cp.csvproject.dto;
 
-import com.sparta.cp.csvproject.exception.InvalidEmployeeException;
-
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
-import java.util.Locale;
 import java.util.Objects;
 
 public class EmployeeDTO {
@@ -23,7 +17,7 @@ public class EmployeeDTO {
     private final LocalDate dateOfBirth;
     private final LocalDate dateOfJoining;
     private final int salary;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
     public EmployeeDTO(String[] attributes) {
 

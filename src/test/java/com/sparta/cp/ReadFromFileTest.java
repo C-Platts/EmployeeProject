@@ -1,7 +1,9 @@
 package com.sparta.cp;
 
+import com.sparta.cp.csvproject.csv.CsvFilter;
+import com.sparta.cp.csvproject.csv.CsvPrinter;
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
-import com.sparta.cp.csvproject.reader.CsvFileReader;
+import com.sparta.cp.csvproject.csv.CsvFileReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,18 @@ public class ReadFromFileTest {
     @Test
     public void testValidRecordIsRead() {
 
-        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/Valid Record.csv");
+        String fileName = "src/main/resources/EmployeeRecords.csv";
+        ArrayList<String> list = reader.readFromFile(fileName);
+
+        CsvPrinter.printNumberOfRecords(list);
+
+        ArrayList<String[]> attributeList = CsvFilter.filterLinesLength(list);
+
+        CsvPrinter.printNumberOfInvalidRecords(list.size(), attributeList);
+
+        ArrayList<EmployeeDTO> employeeList = CsvFilter.filterDuplicates(attributeList);
+
+        CsvPrinter.printNumberOfInvalidRecords(attributeList.size(), employeeList);
 
         Assertions.assertEquals(1, employees.size());
 
@@ -29,14 +42,36 @@ public class ReadFromFileTest {
 
     @Test
     public void testDuplicatesAreIgnored() {
-        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/Duplicates.csv");
+        String fileName = "src/main/resources/EmployeeRecords.csv";
+        ArrayList<String> list = reader.readFromFile(fileName);
+
+        CsvPrinter.printNumberOfRecords(list);
+
+        ArrayList<String[]> attributeList = CsvFilter.filterLinesLength(list);
+
+        CsvPrinter.printNumberOfInvalidRecords(list.size(), attributeList);
+
+        ArrayList<EmployeeDTO> employeeList = CsvFilter.filterDuplicates(attributeList);
+
+        CsvPrinter.printNumberOfInvalidRecords(attributeList.size(), employeeList);
 
         Assertions.assertEquals(4, employees.size());
     }
 
     @Test
     public void testInvalidRecordsAreIgnored() {
-        employees = (ArrayList<EmployeeDTO>) reader.readFromFile("src/test/resources/InvalidRecords.csv");
+        String fileName = "src/main/resources/EmployeeRecords.csv";
+        ArrayList<String> list = reader.readFromFile(fileName);
+
+        CsvPrinter.printNumberOfRecords(list);
+
+        ArrayList<String[]> attributeList = CsvFilter.filterLinesLength(list);
+
+        CsvPrinter.printNumberOfInvalidRecords(list.size(), attributeList);
+
+        ArrayList<EmployeeDTO> employeeList = CsvFilter.filterDuplicates(attributeList);
+
+        CsvPrinter.printNumberOfInvalidRecords(attributeList.size(), employeeList);
 
         Assertions.assertEquals(3, employees.size());
     }

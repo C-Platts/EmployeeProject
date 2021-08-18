@@ -1,11 +1,13 @@
 package com.sparta.cp;
 
+import com.sparta.cp.csvproject.csv.CsvManager;
+
 public class App
 {
     public static void main( String[] args ) {
 
-        CsvManager manager = new CsvManager();
-        manager.start();
+        Loader loader = new Loader();
+        loader.start();
 
     }
 
