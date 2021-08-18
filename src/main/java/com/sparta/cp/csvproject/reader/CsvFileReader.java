@@ -5,15 +5,16 @@ import com.sparta.cp.csvproject.dto.EmployeeDTO;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CsvFileReader {
 
-    public List<EmployeeDTO> readFromFile(String fileName) {
+    public List<String> readFromFile(String fileName) {
 
-        List<EmployeeDTO> employeeDTOList = null;
+        List<String> lines = null;
 
         try {
 
@@ -25,23 +26,8 @@ public class CsvFileReader {
             //Skip first line
             if(bufferedReader.readLine() != null) {
 
-               employeeDTOList = bufferedReader.lines()
-                        .map(l -> l.split(","))
-                        .filter(a -> a.length == 10)
-                        .map(EmployeeDTO::new)
-                        .filter(Objects::nonNull)
-                        .distinct()
-                        .collect(Collectors.toList());
-
-                for (EmployeeDTO employee: employeeDTOList) {
-                    System.out.println(employee);
-                }
-
-
-                System.out.println("Valid Records: " + employeeDTOList.size());
-//                System.out.println("Duplicates found: ");
-//                System.out.println("Invalid records found: ");
-
+               lines  = (ArrayList<String>) bufferedReader.lines()
+                       .collect(Collectors.toList());
             }
 
             bufferedReader.close();
@@ -51,7 +37,7 @@ public class CsvFileReader {
             System.err.println("File not found");
         }
 
-        return employeeDTOList;
+        return lines;
 
     }
 
