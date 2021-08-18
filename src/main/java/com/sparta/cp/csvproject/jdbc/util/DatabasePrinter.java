@@ -26,4 +26,15 @@ public class DatabasePrinter {
         System.out.println(count);
     }
 
+    public static void printTaskInputtingRecords() {
+        System.out.println("Entering clean records into the database\n");
+    }
+    public static void printTaskReadingRecords() {
+        System.out.println("Reading records from the database\n");
+    }
+    public static void printTaskReadingRecordCount() {
+        System.out.println("Reading the number of records in the database");
+    }
+
+
 }
