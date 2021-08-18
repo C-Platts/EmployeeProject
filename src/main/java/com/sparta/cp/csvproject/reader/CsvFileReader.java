@@ -1,20 +1,17 @@
 package com.sparta.cp.csvproject.reader;
 
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
-import com.sparta.cp.csvproject.dto.EmployeeVerifier;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CsvFileReader {
 
-    public List<EmployeeDTO> readFromFile(String fileName, EmployeeVerifier verifier) {
+    public List<EmployeeDTO> readFromFile(String fileName) {
 
         List<EmployeeDTO> employeeDTOList = null;
 
@@ -31,7 +28,7 @@ public class CsvFileReader {
                 employeeDTOList = bufferedReader.lines()
                         .map(l -> l.split(","))
                         .filter(a -> a.length == 10)
-                        .map(verifier::buildEmployee)
+                        .map(a -> new EmployeeDTO(a))
                         .filter(Objects::nonNull)
                         .distinct()
                         .collect(Collectors.toList());

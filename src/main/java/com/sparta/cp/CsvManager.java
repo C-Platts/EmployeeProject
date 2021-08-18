@@ -1,7 +1,6 @@
 package com.sparta.cp;
 
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
-import com.sparta.cp.csvproject.dto.EmployeeVerifier;
 import com.sparta.cp.csvproject.reader.CsvFileFilter;
 import com.sparta.cp.csvproject.reader.CsvFileReader;
 
