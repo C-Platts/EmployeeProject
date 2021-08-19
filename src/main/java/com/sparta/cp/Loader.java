@@ -2,17 +2,16 @@ package com.sparta.cp;
 
 import com.sparta.cp.csvproject.csv.CsvManager;
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
-import com.sparta.cp.csvproject.jdbc.ConnectionManager;
+import com.sparta.cp.csvproject.jdbc.concurrency.ConnectionPool;
 import com.sparta.cp.csvproject.jdbc.DatabaseManager;
-import com.sparta.cp.csvproject.jdbc.dao.EmployeeDAO;
 import com.sparta.cp.csvproject.jdbc.util.DatabasePrinter;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 public class Loader {
 
     private static final int THREAD_COUNT = 2;
+    private ConnectionPool pool = new ConnectionPool(THREAD_COUNT);
 
     public void start() {
         CsvManager csv = new CsvManager();
