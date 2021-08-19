@@ -24,7 +24,8 @@ public class EmployeeDAO {
 
     //Create
     public boolean createRecord(int id, String namePrefix, String firstName, char middleInitial, String lastName, char gender, String email, LocalDate dateOfBith, LocalDate dateOfJoining, int salary) {
-            try {
+
+        try {
 
                 PreparedStatement preparedStatement = connection.prepareStatement(CREATE_NEW_RECORD);
 
