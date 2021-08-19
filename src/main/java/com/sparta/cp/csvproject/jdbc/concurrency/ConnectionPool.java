@@ -12,13 +12,14 @@ public class ConnectionPool {
 
     public ConnectionPool(int size) {
         this.size = size;
+        pool = new LinkedList<>();
         initialisePool();
 
     }
 
     private void initialisePool() {
         for(int i = 0; i < size; i ++) {
-            pool.push(ConnectionManager.connectToDatabase());
+            pool.add(ConnectionManager.connectToDatabase());
         }
     }
 

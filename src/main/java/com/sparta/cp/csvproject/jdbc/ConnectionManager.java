@@ -16,7 +16,7 @@ public class ConnectionManager {
         String password = PropertiesLoader.getProperties().getProperty("password");
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+           return DriverManager.getConnection(url, username, password);
 
         } catch (SQLException e) {
             e.printStackTrace();

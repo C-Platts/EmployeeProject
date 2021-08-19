@@ -7,18 +7,21 @@ import com.sparta.cp.csvproject.jdbc.util.DatabasePrinter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
 
-    private Connection connection;
     private  EmployeeDAO employeeDAO;
 
     public DatabaseManager() {
-        connection = ConnectionManager.connectToDatabase();
+        employeeDAO = new EmployeeDAO(ConnectionManager.connectToDatabase());
+    }
+
+    public DatabaseManager(Connection connection) {
         employeeDAO = new EmployeeDAO(connection);
     }
 
-    public void addEmployeesToDB(ArrayList<EmployeeDTO> employees) {
+    public void addEmployeesToDB(List<EmployeeDTO> employees) {
 
         for (EmployeeDTO employee: employees) {
 

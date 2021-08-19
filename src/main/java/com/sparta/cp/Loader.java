@@ -4,32 +4,65 @@ import com.sparta.cp.csvproject.csv.CsvManager;
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
 import com.sparta.cp.csvproject.jdbc.concurrency.ConnectionPool;
 import com.sparta.cp.csvproject.jdbc.DatabaseManager;
+import com.sparta.cp.csvproject.jdbc.concurrency.DatabaseThread;
 import com.sparta.cp.csvproject.jdbc.util.DatabasePrinter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Spliterator;
+import java.util.stream.Collectors;
 
 public class Loader {
 
-    private static final int THREAD_COUNT = 2;
-    private ConnectionPool pool = new ConnectionPool(THREAD_COUNT);
+    private static final int THREAD_COUNT = 4;
+    private final ConnectionPool pool = new ConnectionPool(THREAD_COUNT);
+    private DatabaseManager dbManager;
+    private final Thread[] threads = new Thread[THREAD_COUNT];
 
     public void start() {
         CsvManager csv = new CsvManager();
-        DatabaseManager dbManager = new DatabaseManager();
 
         ArrayList<EmployeeDTO> employeeList = csv.readRecords();
 
-        DatabasePrinter.printTaskInputtingRecords();
+        int segmentSize = employeeList.size() / THREAD_COUNT;
 
+        //split ListArray into NUM_THREADS segments, passing each segment into a thread
+        LinkedList<List<EmployeeDTO>> segments = new LinkedList<>();
+        for (int i = 0 ; i < employeeList.size(); i+= segmentSize) {
+            segments.add(
+                    employeeList.subList(i, Math.min(i + segmentSize, employeeList.size() - 1))
+            );
+        }
+
+
+        DatabasePrinter.printTaskInputtingRecords();
         double start = System.nanoTime();
-        dbManager.addEmployeesToDB(employeeList);
+
+        for(int i = 0; i < THREAD_COUNT; i ++) {
+            threads[i] = new Thread(new DatabaseThread(segments.get(i), pool.getConnection()));
+            threads[i].start();
+        }
+
+        //dbManager.addEmployeesToDB(employeeList);
+
+        for(Thread thread : threads) {
+            try {
+
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         double end = System.nanoTime();
 
         DatabasePrinter.printTaskReadingRecordCount();
-        DatabasePrinter.printRecordCount(dbManager.getRecordCount());
+        //DatabasePrinter.printRecordCount(dbManager.getRecordCount());
         System.out.println("Time taken to input records: " + ((end - start) / 1000_000_000));
 
-
+        //Time benchmark = 110.35 seconds (Large file)
+        //2 threads = 83.23 seconds
     }
 
 }
