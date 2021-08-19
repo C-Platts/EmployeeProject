@@ -12,7 +12,7 @@ public class CsvManager {
     public ArrayList<EmployeeDTO> readRecords() {
 
         CsvFileReader reader = new CsvFileReader();
-        String fileName = "src/main/resources/EmployeeRecords.csv";
+        String fileName = "src/main/resources/EmployeeRecordsLarge.csv";
 
         //read from file
         CsvPrinter.printTaskReading(fileName);
