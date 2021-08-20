@@ -51,4 +51,8 @@ public class DatabaseManager {
         return employeeDAO.getRecordCount();
     }
 
+    public boolean truncateTable() {
+        return employeeDAO.truncateTable();
+    }
+
 }

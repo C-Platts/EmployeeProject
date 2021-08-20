@@ -56,6 +56,8 @@ public class Loader {
         DatabasePrinter.printRecordCount(dbManager.getRecordCount());
         System.out.println("\n Time taken to input records: " + ((end - start) / 1000_000_000));
 
+        dbManager.truncateTable();
+
         //Time benchmark = 110.35 seconds (Large file)
         //2 threads = 83.23 seconds
         //4 threads = 44.21 seconds

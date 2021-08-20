@@ -10,6 +10,8 @@ public class EmployeeDAO {
 
     private static final String GET_RECORD_COUNT = "SELECT COUNT(1) FROM employee";
     private static final String CREATE_NEW_RECORD = "INSERT INTO `employee_db`.`employee` (`idemployee`, `name_prefix`, `first_name`, `middle_initial`, `last_name`, `gender`, `email`, `date_of_birth`, `date_of_joining`, `salary`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private static final String TRUNCATE_TABLE = "truncate employee_db.employee;";
+
 
     public EmployeeDAO(Connection connection) {
         this.connection = connection;
@@ -75,4 +77,19 @@ public class EmployeeDAO {
         }
         return -1;
     }
+
+    //DELETE
+    public boolean truncateTable() {
+
+        boolean result = false;
+
+        try {
+            result = statement.execute(TRUNCATE_TABLE);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }
