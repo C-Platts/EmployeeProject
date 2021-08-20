@@ -1,4 +1,4 @@
-package com.sparta.cp.csvproject.jdbc.util;
+package com.sparta.cp.csvproject.util;
 
 import java.io.FileReader;
 import java.io.IOException;

@@ -1,12 +1,13 @@
 package com.sparta.cp;
 
+import com.sparta.cp.csvproject.csv.CsvFileReader;
 import com.sparta.cp.csvproject.csv.CsvManager;
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
 import com.sparta.cp.csvproject.jdbc.concurrency.ConnectionPool;
 import com.sparta.cp.csvproject.jdbc.DatabaseManager;
 import com.sparta.cp.csvproject.jdbc.concurrency.ThreadPool;
-import com.sparta.cp.csvproject.jdbc.util.DatabasePrinter;
-import com.sparta.cp.csvproject.jdbc.util.ListSplitter;
+import com.sparta.cp.csvproject.util.DatabasePrinter;
+import com.sparta.cp.csvproject.util.ListSplitter;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,11 +23,12 @@ public class Loader {
     private final DatabaseManager dbManager = new DatabaseManager();
     private final CsvManager csv = new CsvManager();
 
+    private final String fileName = "src/main/resources/EmployeeRecordsLarge.csv";
 
     public void start() {
 
         //Read records from file.
-        ArrayList<EmployeeDTO> employeeList = csv.readRecords();
+        ArrayList<EmployeeDTO> employeeList = csv.readRecords(new CsvFileReader(), fileName);
 
 
         //split ListArray into NUM_THREADS segments
@@ -57,25 +59,6 @@ public class Loader {
         System.out.println("\n Time taken to input records: " + ((end - start) / 1000_000_000));
 
         dbManager.truncateTable();
-
-        //Time benchmark = 110.35 seconds (Large file)
-        //2 threads = 83.23 seconds
-        //4 threads = 44.21 seconds
-        //8 threads = 24.62
-        //9 threads = 23.08
-        //10 threads = (1st): 25.92, (2nd): 20.92
-        //11 threads = 20.74
-        //12 threads = 19.12
-        //24 threads = 11.94
-        //32 threads = 10.38
-        //64 threads = 8.17
-        //70 threads = 8.00
-        //80 threads = 7.86
-        //90 threads = 7.39 <---Optimal
-        //91 threads = (1st): 7.61, (2nd): 7.81
-        //92 threads = (1st): 8.12, (2nd): 7.73
-        //100 threads =
-        //128 threads = 13.32
     }
 
 }

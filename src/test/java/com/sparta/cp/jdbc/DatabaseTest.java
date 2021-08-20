@@ -18,7 +18,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testEmployeeCanBeAddedTodatabase() {
+    public void testEmployeeCanBeAddedToDatabase() {
 
         EmployeeDTO testEmployee = new EmployeeDTO(
                 new String[]{"1", "Mr", "Test", "T", "Testington", "M", "test@test.com", "11/11/1111", "2/2/2222", "12345"}
@@ -30,6 +30,17 @@ public class DatabaseTest {
         dbManager.addEmployeesToDB(list);
 
         Assertions.assertEquals(1, dbManager.getRecordCount());
+
+        dbManager.truncateTable();
+
+    }
+
+    @Test
+    public void testDatabaseCanBeReadFrom() {
+
+        dbManager.getAllEmployees();
+
+        //Assertions.assertTrue();
 
     }
 

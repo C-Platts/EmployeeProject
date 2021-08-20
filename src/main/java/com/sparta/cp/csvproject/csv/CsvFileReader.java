@@ -1,6 +1,7 @@
 package com.sparta.cp.csvproject.csv;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class CsvFileReader {
 
-    public ArrayList<String> readFromFile(String fileName) {
+    public ArrayList<String> readFromCsvFile(String fileName) {
 
         ArrayList<String> lines = null;
 
@@ -26,9 +27,11 @@ public class CsvFileReader {
 
             bufferedReader.close();
 
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.err.println("File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return lines;

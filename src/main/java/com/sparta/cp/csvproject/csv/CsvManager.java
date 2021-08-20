@@ -1,36 +1,33 @@
 package com.sparta.cp.csvproject.csv;
 
-import com.sparta.cp.csvproject.csv.CsvFilter;
-import com.sparta.cp.csvproject.csv.CsvPrinter;
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
-import com.sparta.cp.csvproject.csv.CsvFileReader;
 
 import java.util.ArrayList;
 
 public class CsvManager {
 
-    public ArrayList<EmployeeDTO> readRecords() {
 
-        CsvFileReader reader = new CsvFileReader();
-        String fileName = "src/main/resources/EmployeeRecordsLarge.csv";
+
+    public ArrayList<EmployeeDTO> readRecords(CsvFileReader reader, String fileName) {
 
         //read from file
-        CsvPrinter.printTaskReading(fileName);
-        ArrayList<String> list = reader.readFromFile(fileName);
+        //TODO: change method name - not clear
+        CsvPrinter.printMessageReadingFromCsvFile(fileName);
+        ArrayList<String> list = reader.readFromCsvFile(fileName);
         CsvPrinter.printNumberOfRecords(list);
 
 
         //Remove records without 10 attributes
-        CsvPrinter.printTaskFilteringLength();
-        ArrayList<String[]> attributeList = CsvFilter.filterLinesLength(list);
+        CsvPrinter.printMessageFilteringByRecordLength();
+        ArrayList<String[]> attributeList = CsvFilter.getRecordsWithLengthTen(list);
         CsvPrinter.printNumberOfInvalidRecords(list.size(), attributeList);
 
 
         //Remove duplicate records
         CsvPrinter.printTaskRemovingDuplicates();
-        ArrayList<EmployeeDTO> employeeList = CsvFilter.filterDuplicates(attributeList);
+        ArrayList<EmployeeDTO> employeeList = CsvFilter.getUniqueRecordsList(attributeList);
         CsvPrinter.printNumberOfInvalidRecords(attributeList.size(), employeeList);
-        CsvPrinter.printRemainingrecordsCount(employeeList);
+        CsvPrinter.printRemainingRecordsCount(employeeList);
 
         return employeeList;
     }

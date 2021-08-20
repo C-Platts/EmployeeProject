@@ -1,6 +1,6 @@
 package com.sparta.cp.csvproject.jdbc;
 
-import com.sparta.cp.csvproject.jdbc.util.PropertiesLoader;
+import com.sparta.cp.csvproject.util.PropertiesLoader;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

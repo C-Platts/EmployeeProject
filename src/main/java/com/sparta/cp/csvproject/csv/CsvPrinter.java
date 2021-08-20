@@ -12,11 +12,11 @@ public class CsvPrinter {
         System.out.println("Number of records: " + list.size() + '\n');
     }
 
-    public static void printTaskReading(String fileName) {
+    public static void printMessageReadingFromCsvFile(String fileName) {
         System.out.println("Reading from file :" + fileName);
     }
 
-    public static void printTaskFilteringLength() {
+    public static void printMessageFilteringByRecordLength() {
         System.out.println("Removing records of invalid length:");
     }
 
@@ -24,7 +24,7 @@ public class CsvPrinter {
         System.out.println("Removing duplicate records:");
     }
 
-    public static <T> void printRemainingrecordsCount(ArrayList<T> list) {
+    public static <T> void printRemainingRecordsCount(ArrayList<T> list) {
         System.out.println("Records Remaining: " + list.size());
     }
 

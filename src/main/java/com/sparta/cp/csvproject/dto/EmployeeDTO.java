@@ -81,12 +81,10 @@ public class EmployeeDTO {
 
         return id == employeeDTO.id;
 
-        //return middleInitial == employeeDTO.middleInitial && salary == employeeDTO.salary && Objects.equals(namePrefix, employeeDTO.namePrefix) && Objects.equals(firstName, employeeDTO.firstName) && Objects.equals(lastName, employeeDTO.lastName) && Objects.equals(gender, employeeDTO.gender) && Objects.equals(email, employeeDTO.email) && Objects.equals(dateOfBirth, employeeDTO.dateOfBirth) && Objects.equals(dateOfJoining, employeeDTO.dateOfJoining) && Objects.equals(formatter, employeeDTO.formatter);
     }
 
     @Override
     public int hashCode() {
-        //return Objects.hash(namePrefix, firstName, middleInitial, lastName, gender, email, dateOfBirth, dateOfJoining, salary, formatter);
         return Objects.hash(id);
     }
 

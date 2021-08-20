@@ -4,7 +4,7 @@ import com.sparta.cp.csvproject.dto.EmployeeDTO;
 import com.sparta.cp.csvproject.jdbc.DatabaseManager;
 import com.sparta.cp.csvproject.jdbc.concurrency.ConnectionPool;
 import com.sparta.cp.csvproject.jdbc.concurrency.ThreadPool;
-import com.sparta.cp.csvproject.jdbc.util.ListSplitter;
+import com.sparta.cp.csvproject.util.ListSplitter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

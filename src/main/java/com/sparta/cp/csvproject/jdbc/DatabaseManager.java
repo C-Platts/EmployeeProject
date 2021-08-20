@@ -2,11 +2,10 @@ package com.sparta.cp.csvproject.jdbc;
 
 import com.sparta.cp.csvproject.dto.EmployeeDTO;
 import com.sparta.cp.csvproject.jdbc.dao.EmployeeDAO;
-import com.sparta.cp.csvproject.jdbc.util.DatabasePrinter;
+import com.sparta.cp.csvproject.util.DatabasePrinter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {

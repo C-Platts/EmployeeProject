@@ -24,15 +24,15 @@ public class ReadFromFileTest {
     public void testValidRecordIsRead() {
 
         String fileName = "src/main/resources/EmployeeRecords.csv";
-        ArrayList<String> list = reader.readFromFile(fileName);
+        ArrayList<String> list = reader.readFromCsvFile(fileName);
 
         CsvPrinter.printNumberOfRecords(list);
 
-        ArrayList<String[]> attributeList = CsvFilter.filterLinesLength(list);
+        ArrayList<String[]> attributeList = CsvFilter.getRecordsWithLengthTen(list);
 
         CsvPrinter.printNumberOfInvalidRecords(list.size(), attributeList);
 
-        ArrayList<EmployeeDTO> employeeList = CsvFilter.filterDuplicates(attributeList);
+        ArrayList<EmployeeDTO> employeeList = CsvFilter.getUniqueRecordsList(attributeList);
 
         CsvPrinter.printNumberOfInvalidRecords(attributeList.size(), employeeList);
 
@@ -43,15 +43,15 @@ public class ReadFromFileTest {
     @Test
     public void testDuplicatesAreIgnored() {
         String fileName = "src/main/resources/EmployeeRecords.csv";
-        ArrayList<String> list = reader.readFromFile(fileName);
+        ArrayList<String> list = reader.readFromCsvFile(fileName);
 
         CsvPrinter.printNumberOfRecords(list);
 
-        ArrayList<String[]> attributeList = CsvFilter.filterLinesLength(list);
+        ArrayList<String[]> attributeList = CsvFilter.getRecordsWithLengthTen(list);
 
         CsvPrinter.printNumberOfInvalidRecords(list.size(), attributeList);
 
-        ArrayList<EmployeeDTO> employeeList = CsvFilter.filterDuplicates(attributeList);
+        ArrayList<EmployeeDTO> employeeList = CsvFilter.getUniqueRecordsList(attributeList);
 
         CsvPrinter.printNumberOfInvalidRecords(attributeList.size(), employeeList);
 
@@ -61,15 +61,15 @@ public class ReadFromFileTest {
     @Test
     public void testInvalidRecordsAreIgnored() {
         String fileName = "src/main/resources/EmployeeRecords.csv";
-        ArrayList<String> list = reader.readFromFile(fileName);
+        ArrayList<String> list = reader.readFromCsvFile(fileName);
 
         CsvPrinter.printNumberOfRecords(list);
 
-        ArrayList<String[]> attributeList = CsvFilter.filterLinesLength(list);
+        ArrayList<String[]> attributeList = CsvFilter.getRecordsWithLengthTen(list);
 
         CsvPrinter.printNumberOfInvalidRecords(list.size(), attributeList);
 
-        ArrayList<EmployeeDTO> employeeList = CsvFilter.filterDuplicates(attributeList);
+        ArrayList<EmployeeDTO> employeeList = CsvFilter.getUniqueRecordsList(attributeList);
 
         CsvPrinter.printNumberOfInvalidRecords(attributeList.size(), employeeList);
 
