@@ -6,6 +6,7 @@ import com.sparta.cp.csvproject.jdbc.concurrency.ConnectionPool;
 import com.sparta.cp.csvproject.jdbc.DatabaseManager;
 import com.sparta.cp.csvproject.jdbc.concurrency.DatabaseThread;
 import com.sparta.cp.csvproject.jdbc.util.DatabasePrinter;
+import com.sparta.cp.csvproject.jdbc.util.ListSplitter;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,14 +27,7 @@ public class Loader {
         int segmentSize = (employeeList.size() / THREAD_COUNT + 1);
 
         //split ListArray into NUM_THREADS segments, passing each segment goes to a thread
-        LinkedList<List<EmployeeDTO>> segments = new LinkedList<>();
-        for (int i = 0 ; i < employeeList.size(); i+= segmentSize) {
-            segments.add(
-                    employeeList.subList(i, Math.min(i + segmentSize, employeeList.size()))
-            );
-        }
-
-        System.out.println(segments.size());
+        LinkedList<List<EmployeeDTO>> segments = ListSplitter.split(employeeList, segmentSize);
 
 
         DatabasePrinter.printTaskInputtingRecords();
