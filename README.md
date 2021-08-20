@@ -25,5 +25,4 @@ Within java/resources, a .properties file should be created. Within this file yo
   - Retrieving the number of records in the database 
   - Truncating the table
   
-  ThreadPool creates the number of threads specified as passed into the constructor. Creating anymore than 149 threads on my machine returns a "Too many connections" message 
-  from the server.
+  ThreadPool creates the number of threads specified as passed into the constructor. Although the program can create multiple threads, be sure to check the maximum number of connections your database of choice
