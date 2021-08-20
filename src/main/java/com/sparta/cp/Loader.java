@@ -10,14 +10,12 @@ import com.sparta.cp.csvproject.jdbc.util.DatabasePrinter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.stream.Collectors;
 
 public class Loader {
 
     private static final int THREAD_COUNT = 90;
     private final ConnectionPool pool = new ConnectionPool(THREAD_COUNT);
-    private DatabaseManager dbManager = new DatabaseManager();
+    private final DatabaseManager dbManager = new DatabaseManager();
     private final Thread[] threads = new Thread[THREAD_COUNT];
 
     public void start() {
