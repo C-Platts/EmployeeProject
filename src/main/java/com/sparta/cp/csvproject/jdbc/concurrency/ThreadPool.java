@@ -1,11 +1,13 @@
 package com.sparta.cp.csvproject.jdbc.concurrency;
 
+import com.sparta.cp.csvproject.dto.EmployeeDTO;
+
 import java.sql.Connection;
 import java.util.List;
 
 public class ThreadPool {
 
-    private Thread[] pool;
+    private final Thread[] pool;
     private static int THREAD_COUNT;
 
     public ThreadPool(int threadCount) {
@@ -13,20 +15,31 @@ public class ThreadPool {
         pool = new Thread[THREAD_COUNT];
     }
 
-    public void initialiseThread(Runnable threadType, List segment, Connection connection) {
+    public static int getThreadCount() {
+        return THREAD_COUNT;
+    }
 
-        for(int i = 0; i < THREAD_COUNT; i ++) {
-            pool[i] = new Thread(new DatabaseThread(segment, connection));
+    public void initialiseThread(List<EmployeeDTO> segment, Connection connection, int threadNumber) {
+
+        pool[threadNumber] = new Thread(new DatabaseThread(segment, connection));
+
+    }
+
+
+    public void start() {
+
+        for(Thread thread : pool) {
+            thread.start();
         }
 
     }
 
-/*
-    public void start() {
+    public void join() throws InterruptedException {
 
-        for()
-
+        for(Thread thread : pool) {
+            thread.join();
+        }
     }
-*/
+
 
 }
