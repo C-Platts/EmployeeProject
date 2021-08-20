@@ -17,8 +17,8 @@ public class DatabasePrinter {
             System.out.println(resultSet.getString(6));
             System.out.println(resultSet.getString(7));
             System.out.println(resultSet.getDate(8));
-            System.out.println(resultSet.getDate(8));
-            System.out.println(resultSet.getInt(9));
+            System.out.println(resultSet.getDate(9));
+            System.out.println(resultSet.getInt(10));
         }
     }
 
